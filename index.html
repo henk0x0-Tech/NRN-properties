@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NRN Properties Bangalore | 360° Online Plate Tours & Luxury Residences in Electronic City</title>
+  <meta name="description" content="Explore luxury sky villas, penthouses, and gated floor plates in Electronic City Phase 1 & 2 through high-definition 360° online virtual tours. NRN Properties Bangalore.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Three.js CDN for 3D Architectural Showcase & 360 VR Panoramas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Google Analytics (GA4) Integration -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX" id="ga4-script"></script>
+  <script id="ga4-init">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    // Pull configured Measurement ID dynamically from localStorage or server
+    const currentGaId = localStorage.getItem('NRN_GA_ID') || 'G-XXXXXXXXXX';
+    gtag('config', currentGaId, {
+      send_page_view: true,
+      anonymize_ip: true,
+      custom_map: { 'dimension1': 'residence_type', 'dimension2': 'location_zone' }
+    });
+
+    // Helper for structured conversion and interaction tracking
+    window.NRN_TRACK_EVENT = function(action, params) {
+      if (typeof gtag === 'function') {
+        gtag('event', action, params || {});
+      }
+      // Also send event to Node.js backend
+      try {
+        fetch('/api/analytics/track', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ eventName: action, params: params, url: window.location.href, timestamp: new Date().toISOString() })
+        }).catch(function(){});
+      } catch(e) {}
+    };
+  </script>
+</head>
+<body>
+
+  <!-- Static Navigation Bar with 3D Depth & Embossed Icons -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="brand-logo">
+        <div class="brand-emblem">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2L2 9l3 2v9h6v-6h2v6h6v-9l3-2-10-7zm0 3.5L18 10v7h-2v-5H8v5H6v-7l6-4.5z"/>
+          </svg>
+        </div>
+        <div class="brand-name">
+          NRN PROPERTIES
+          <span>Bangalore · Electronic City</span>
+        </div>
+      </a>
+      
+      <ul class="nav-links" id="nav-links">
+        <li>
+          <a href="#hero" class="nav-link active">
+            <span class="nav-link-icon">🧭</span>
+            <span>Discovery</span>
+          </a>
+        </li>
+        <li>
+          <a href="#residences" class="nav-link">
+            <span class="nav-link-icon">🏠</span>
+            <span>360° Plates</span>
+          </a>
+        </li>
+        <li>
+          <a href="#plate-experience" class="nav-link">
+            <span class="nav-link-icon">🔄</span>
+            <span>VR Walkthrough</span>
+          </a>
+        </li>
+        <li>
+          <a href="#showcase-3d" class="nav-link">
+            <span class="nav-link-icon">🏢</span>
+            <span>3D Sky Villa</span>
+          </a>
+        </li>
+        <li>
+          <a href="#valuation" class="nav-link">
+            <span class="nav-link-icon">📊</span>
+            <span>ROI Model</span>
+          </a>
+        </li>
+      </ul>
+      
+      <div class="nav-actions">
+        <button class="btn-ghost" onclick="open360Tour('obsidian-sky-ec1')">
+          <span style="color:var(--secondary-gold); font-size: 0.9rem;">✦</span> 360° Tour
+        </button>
+        <button class="btn-gold" onclick="openConciergeModal('VIP Site Visit')">
+          <span>📅</span> Book Visit
+        </button>
+        <button class="nav-toggle-btn" id="nav-toggle-btn" onclick="toggleMobileNav()" aria-label="Toggle Navigation Menu">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-section" id="hero">
+    <div class="hero-backdrop"></div>
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span class="badge-pill pulse">360° Interactive Plate Tours</span>
+          <span class="label-caps">Phase 1 & Phase 2 · Bangalore</span>
+        </div>
+        <h1 class="hero-title">
+          Tour Every Floor Plate in <span class="text-gold-gradient">360° Virtual Reality</span>
+        </h1>
+        <p class="hero-subtitle">
+          Experience every luxury flat, sky villa, and penthouse in Electronic City Phase 1 & 2 directly from your screen. Inspect double-height living salons, master presidential suites, and sky pools in full 360° online.
+        </p>
+        
+        <!-- Search & Filter Bar -->
+        <div class="hero-filter-bar">
+          <div class="filter-group">
+            <label for="filter-location">Specific Micro-Location</label>
+            <select id="filter-location">
+              <option value="all">Both Phase 1 & Phase 2</option>
+              <option value="ec-phase1">Electronic City Phase 1 (Neeladri / Wipro)</option>
+              <option value="ec-phase2">Electronic City Phase 2 (TCS / Tech Mahindra)</option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <label for="filter-type">Property Typology</label>
+            <select id="filter-type">
+              <option value="all">All Typologies</option>
+              <option value="sky-mansion">Triplex Sky Villas</option>
+              <option value="penthouse">Luxury Penthouses</option>
+              <option value="gated-villa">Gated Estate Villas</option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <label for="filter-price">Price Horizon (INR)</label>
+            <select id="filter-price">
+              <option value="all">All Price Tiers</option>
+              <option value="tier-1">₹2.0 Cr – ₹3.5 Cr</option>
+              <option value="tier-2">₹3.5 Cr – ₹7.0 Cr</option>
+              <option value="tier-3">₹7.0 Cr – ₹15.0 Cr+</option>
+            </select>
+          </div>
+          
+          <button class="btn-gold" onclick="applyHeroFilters()">Filter 360° Plates</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Stats / Telemetry Ticker (Bangalore Specific) -->
+  <section class="telemetry-ticker">
+    <div class="telemetry-grid">
+      <div class="telemetry-item">
+        <div class="telemetry-value">360<span>° HD</span></div>
+        <div class="telemetry-label">Virtual Plate Tours For Every Flat</div>
+      </div>
+      <div class="telemetry-item">
+        <div class="telemetry-value">100<span>%</span></div>
+        <div class="telemetry-label">Online Remote Inspection Ready</div>
+      </div>
+      <div class="telemetry-item">
+        <div class="telemetry-value">Phase 1 <span>&</span> 2</div>
+        <div class="telemetry-label">Electronic City Exclusive Focus</div>
+      </div>
+      <div class="telemetry-item">
+        <div class="telemetry-value">₹380<span> Cr+</span></div>
+        <div class="telemetry-label">Curated Portfolio Value</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Curated Residences Listings with 360 View Buttons -->
+  <section class="section" id="residences">
+    <div class="section-header">
+      <span class="label-caps">360° Online Inventory</span>
+      <h2 class="section-title">Select Any Flat to Launch 360° Tour</h2>
+      <p class="section-description">
+        Click the <strong>"Explore 360° Online Plate View"</strong> button on any residence below to immediately immerse yourself in high-resolution spherical walkthroughs of every room and floor plate.
+      </p>
+    </div>
+
+    <!-- Filter Category Tabs -->
+    <div class="filter-tabs">
+      <button class="tab-btn active" onclick="filterCategory('all', this)">All 360° Residences</button>
+      <button class="tab-btn" onclick="filterCategory('ec-phase1', this)">Electronic City Phase 1</button>
+      <button class="tab-btn" onclick="filterCategory('ec-phase2', this)">Electronic City Phase 2</button>
+      <button class="tab-btn" onclick="filterCategory('sky-mansion', this)">Sky Villas</button>
+      <button class="tab-btn" onclick="filterCategory('penthouse', this)">Penthouses</button>
+      <button class="tab-btn" onclick="filterCategory('gated-villa', this)">Gated Villas</button>
+    </div>
+
+    <!-- Residence Card Grid -->
+    <div class="residence-grid" id="residence-grid">
+      <!-- Cards rendered dynamically via app.js with 360° buttons -->
+    </div>
+  </section>
+
+  <!-- Dedicated 360° Online Floor Plate Feature Showcase -->
+  <section class="section" id="plate-experience" style="background: radial-gradient(circle at 30% 50%, #151a28 0%, var(--bg-midnight) 90%); border-top: 1px solid var(--gold-border); border-bottom: 1px solid var(--gold-border);">
+    <div class="section-header">
+      <span class="label-caps">Next-Gen Client Experience</span>
+      <h2 class="section-title">Virtual Plate Inspection Hub</h2>
+      <p class="section-description">
+        Whether you are a local Bangalore IT executive or an overseas NRI investor, you can inspect room layouts, ceiling clearances, marble finishes, and balcony vistas online in real-time.
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; max-width: 1440px; margin: 0 auto;">
+      <div style="background: var(--surface-glass); border: 1px solid var(--gold-border); padding: 2rem; border-radius: var(--radius-sm); display: flex; flex-direction: column; gap: 1rem;">
+        <div style="font-size: 2rem; color: var(--secondary-gold);">01.</div>
+        <h3 style="font-size: 1.375rem; color: var(--text-main);">Full 360° Spatial Immersion</h3>
+        <p style="color: var(--text-muted); font-size: 0.875rem; line-height: 1.6;">
+          Drag to rotate across all 360 degrees. Zoom into architectural accents, smart switches, Italian modular kitchens, and acoustic window assemblies.
+        </p>
+        <button class="btn-ghost" style="margin-top: auto;" onclick="open360Tour('obsidian-sky-ec1', 0)">Launch Living Salon 360°</button>
+      </div>
+
+      <div style="background: var(--surface-glass); border: 1px solid var(--gold-border); padding: 2rem; border-radius: var(--radius-sm); display: flex; flex-direction: column; gap: 1rem;">
+        <div style="font-size: 2rem; color: var(--secondary-gold);">02.</div>
+        <h3 style="font-size: 1.375rem; color: var(--text-main);">Multi-Level Floor Plate Switcher</h3>
+        <p style="color: var(--text-muted); font-size: 0.875rem; line-height: 1.6;">
+          Switch instantly between Ground Plates, Duplex Terrace Plates, and Top Penthouse Plates to inspect differing elevations and private deck configurations.
+        </p>
+        <button class="btn-ghost" style="margin-top: auto;" onclick="open360Tour('obsidian-sky-ec1', 2)">Launch Sky Pool Plate 360°</button>
+      </div>
+
+      <div style="background: var(--surface-glass); border: 1px solid var(--gold-border); padding: 2rem; border-radius: var(--radius-sm); display: flex; flex-direction: column; gap: 1rem;">
+        <div style="font-size: 2rem; color: var(--secondary-gold);">03.</div>
+        <h3 style="font-size: 1.375rem; color: var(--text-main);">Live Radar & Orientation HUD</h3>
+        <p style="color: var(--text-muted); font-size: 0.875rem; line-height: 1.6;">
+          An integrated architectural radar mini-map tracks your exact cardinal viewing direction and room position within the floor plate in real-time.
+        </p>
+        <button class="btn-ghost" style="margin-top: auto;" onclick="open360Tour('sovereign-crown-ec1', 0)">Launch 360° Observatory</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3D Interactive Sky Residence Dossier -->
+  <section class="interactive-showcase" id="showcase-3d">
+    <div class="showcase-container">
+      
+      <div class="canvas-wrapper">
+        <div class="canvas-hud">
+          <span class="hud-tag">ELECTRONIC CITY PHASE 1 · 29-FLOOR LANDMARK TOWER</span>
+          <span class="hud-tag" id="hud-floor-tag">FLOOR 29 · PRESIDENTIAL SKY PENTHOUSE (+116M)</span>
+        </div>
+        
+        <!-- Interactive Floor Hover Tooltip -->
+        <div id="floor-inspector-card" class="floor-inspector-card">
+          <div class="fic-header">
+            <span class="fic-badge" id="fic-level">FL 29</span>
+            <span class="fic-elevation" id="fic-elevation">+116m Elevation</span>
+          </div>
+          <h4 class="fic-title" id="fic-title">Presidential Sky Villa Penthouse</h4>
+          <p class="fic-specs" id="fic-specs">6,800 sq.ft · Private Infinity Pool & Helipad</p>
+          <div class="fic-footer">
+            <span class="fic-price" id="fic-price">₹18.50 Cr</span>
+            <span class="fic-action">Click Floor to Inspect</span>
+          </div>
+        </div>
+
+        <!-- Three.js Canvas -->
+        <div id="residence-3d-canvas"></div>
+        
+        <!-- Floor Quick Jumps -->
+        <div class="tower-floor-jumper">
+          <span class="jumper-label">29 FLOORS:</span>
+          <button class="jumper-btn active" onclick="jumpToTowerFloor(29, this)">FL 29 Penthouse</button>
+          <button class="jumper-btn" onclick="jumpToTowerFloor(25, this)">FL 25 Sky Villa</button>
+          <button class="jumper-btn" onclick="jumpToTowerFloor(18, this)">FL 18 Imperial</button>
+          <button class="jumper-btn" onclick="jumpToTowerFloor(8, this)">FL 8 Executive</button>
+          <button class="jumper-btn" onclick="jumpToTowerFloor(1, this)">FL 1 Lobby</button>
+          <button class="jumper-btn" onclick="resetTowerCamera(this)">Full Tower 360°</button>
+        </div>
+
+        <div class="canvas-controls">
+          <div class="control-pill-group">
+            <button class="control-pill-btn active" onclick="setBuildingMode('obsidian', this)">Obsidian Slate (Real)</button>
+            <button class="control-pill-btn" onclick="setBuildingMode('champagne', this)">Champagne Gold</button>
+            <button class="control-pill-btn" onclick="setBuildingMode('wireframe', this)">Architectural CAD</button>
+          </div>
+          
+          <div class="control-pill-group">
+            <button class="control-pill-btn active" onclick="toggleLightingMode('night', this)">Night Glow</button>
+            <button class="control-pill-btn" onclick="toggleLightingMode('sunset', this)">Sunset Gold</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dossier-details">
+        <span class="dossier-tag">Signature Dossier · Phase 1 Landmark</span>
+        <h2 class="dossier-title">The Obsidian Sky Villa & Observatory</h2>
+        <p class="dossier-description">
+          Located right on Neeladri Road in Electronic City Phase 1, this 6,800 sq.ft triplex sky villa features a 180° uninterrupted panoramic view over the Electronic City elevated highway and green buffer zones.
+        </p>
+
+        <div class="dossier-feature-list">
+          <div class="dossier-feature-item">
+            <div class="feature-icon-box">✦</div>
+            <div class="feature-text">
+              <h5>Direct Elevated Tollway Access</h5>
+              <p>15 minutes to Koramangala and Silk Board.</p>
+            </div>
+          </div>
+          
+          <div class="dossier-feature-item">
+            <div class="feature-icon-box">✦</div>
+            <div class="feature-text">
+              <h5>Private Sky Deck & Pool</h5>
+              <p>Heated infinity pool with unobstructed skyline views.</p>
+            </div>
+          </div>
+          
+          <div class="dossier-feature-item">
+            <div class="feature-icon-box">✦</div>
+            <div class="feature-text">
+              <h5>Double-Height Italian Salon</h5>
+              <p>Bespoke Botticino marble & champagne brass trims.</p>
+            </div>
+          </div>
+          
+          <div class="dossier-feature-item">
+            <div class="feature-icon-box">✦</div>
+            <div class="feature-text">
+              <h5>Metro Yellow Line Proximity</h5>
+              <p>500 meters from Electronic City Phase 1 Station.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+          <button class="btn-gold" onclick="open360Tour('obsidian-sky-ec1')">✦ Launch 360° VR Plate</button>
+          <button class="btn-ghost" onclick="openConciergeModal('Site Visit: The Obsidian Sky Villa')">Book Chauffeur Site Visit</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Valuation & Investment Yield Model (INR - Crores) -->
+  <section class="section" id="valuation">
+    <div class="section-header">
+      <span class="label-caps">Financial Architecture</span>
+      <h2 class="section-title">Electronic City Investment & ROI Model</h2>
+      <p class="section-description">
+        Calculate your asset appreciation, rental yields, and down payment structure for Electronic City properties in Indian Rupees (₹).
+      </p>
+    </div>
+
+    <div class="calculator-card">
+      <div class="calc-inputs">
+        <div class="range-slider-group">
+          <div class="slider-header">
+            <span>Property Acquisition Value</span>
+            <span id="slider-val-price">₹4.50 Cr</span>
+          </div>
+          <input type="range" id="input-price" min="15000000" max="150000000" step="2500000" value="45000000" oninput="updateCalculator()">
+        </div>
+
+        <div class="range-slider-group">
+          <div class="slider-header">
+            <span>Self-Funding / Down Payment</span>
+            <span id="slider-val-down">30% (₹1.35 Cr)</span>
+          </div>
+          <input type="range" id="input-down" min="20" max="100" step="5" value="30" oninput="updateCalculator()">
+        </div>
+
+        <div class="range-slider-group">
+          <div class="slider-header">
+            <span>Projected Annual Growth</span>
+            <span id="slider-val-growth">9.5% Annual Tech Corridor ROI</span>
+          </div>
+          <input type="range" id="input-growth" min="5" max="16" step="0.5" value="9.5" oninput="updateCalculator()">
+        </div>
+
+        <div style="background: rgba(10, 13, 20, 0.6); padding: 1rem; border-radius: var(--radius-xs); border: 1px solid var(--gold-border);">
+          <div style="font-size: 0.75rem; color: var(--secondary-gold); font-weight: 600; text-transform: uppercase;">Location Factor:</div>
+          <p style="font-size: 0.8125rem; color: var(--text-muted); margin-top: 4px;">Electronic City Phase 1 & 2 infrastructure driven by Metro Yellow Line expansion and peripheral ring road connectivity.</p>
+        </div>
+      </div>
+
+      <div class="calc-summary-panel">
+        <div class="calc-result-title">Projected 5-Year Asset Valuation</div>
+        <div class="calc-result-number" id="calc-future-val">₹7.08 Cr</div>
+        
+        <div class="calc-meta-grid">
+          <div class="calc-meta-item">
+            <span>Estimated 5-Yr Wealth Gain</span>
+            <span id="calc-gain-val">+₹2.58 Cr</span>
+          </div>
+          <div class="calc-meta-item">
+            <span>Expected Rental Yield</span>
+            <span id="calc-fee-val">4.5% - 6.0% p.a.</span>
+          </div>
+        </div>
+
+        <button class="btn-gold" style="margin-top: 1rem;" onclick="openConciergeModal('Structured Financial Advisory')">Request Custom Financial Memo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 360° Virtual Tour Fullscreen VR Modal -->
+  <div class="vr-tour-modal" id="vr-modal">
+    <div class="vr-header">
+      <div class="vr-header-title">
+        <h3 id="vr-property-title">
+          The Obsidian Sky Villa
+          <span class="badge-pill" style="font-size: 0.625rem;" id="vr-plate-badge">Floor 22 - Sky Villa Plate A</span>
+        </h3>
+        <p id="vr-property-loc">Electronic City Phase 1, Bangalore · ₹6.85 Cr</p>
+      </div>
+
+      <!-- Floor Plate Selector -->
+      <div class="vr-plate-selector" id="vr-plates-list">
+        <!-- Injected dynamically via JS -->
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <div class="vr-action-controls">
+          <button class="vr-ctrl-btn active" id="vr-btn-autorotate" onclick="toggle360AutoRotate(this)" title="Toggle Auto Rotation">
+            🔄 Auto 360°
+          </button>
+          <button class="vr-ctrl-btn" onclick="toggle360Fullscreen()" title="Fullscreen">
+            ⛶ Fullscreen
+          </button>
+        </div>
+        <button class="modal-close-btn" style="position: static; font-size: 1.75rem;" onclick="close360Tour()">&times;</button>
+      </div>
+    </div>
+
+    <!-- 360 Three.js Viewport -->
+    <div class="vr-viewport-container" id="vr-viewport">
+      <div id="vr-canvas-360"></div>
+
+      <!-- Top HUD Telemetry -->
+      <div class="vr-hud-top">
+        <div class="vr-hud-pill">
+          <span>● LIVE 360° VR STREAM</span>
+          <span>|</span>
+          <span id="vr-room-desc">Double-height salon with Botticino marble & floor-to-ceiling glass</span>
+        </div>
+
+        <div class="vr-hud-pill">
+          <span>DRAG MOUSE OR TOUCH TO PAN 360°</span>
+        </div>
+      </div>
+
+      <!-- Bottom Room Carousel Switcher -->
+      <div class="vr-bottom-bar">
+        <div class="vr-room-nav" id="vr-room-nav">
+          <!-- Injected dynamically via JS -->
+        </div>
+      </div>
+
+      <!-- Radar Minimap -->
+      <div class="vr-minimap">
+        <div class="minimap-header">
+          <span>Plate Radar</span>
+          <span style="color:#10b981;">● Online</span>
+        </div>
+        <div class="minimap-layout">
+          <div class="radar-indicator" id="radar-indicator"></div>
+        </div>
+        <div style="font-size: 0.625rem; color: var(--text-dim); text-align: center; margin-top: 4px;">
+          Cardinal Direction Tracking
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Private Concierge & VIP Tour Modal -->
+  <div class="modal-overlay" id="concierge-modal">
+    <div class="modal-container">
+      <button class="modal-close-btn" onclick="closeConciergeModal()">&times;</button>
+      <span class="label-caps">Bangalore Private Office</span>
+      <h3 style="font-size: 1.75rem; margin-top: 0.5rem;" id="modal-title">Schedule Site Visit & Portfolio Discussion</h3>
+      <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">
+        Complete this form for a private chauffeur pickup or exclusive weekend preview in Electronic City Phase 1 or Phase 2.
+      </p>
+
+      <form id="concierge-form" onsubmit="handleConciergeSubmit(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="client-name">Full Name</label>
+            <input type="text" id="client-name" required placeholder="Mr. / Ms. / Dr. Full Name">
+          </div>
+          
+          <div class="form-group">
+            <label for="client-email">Email Address</label>
+            <input type="email" id="client-email" required placeholder="name@company.com">
+          </div>
+
+          <div class="form-group">
+            <label for="client-phone">Mobile Number (+91)</label>
+            <input type="tel" id="client-phone" required placeholder="+91 98765 43210">
+          </div>
+
+          <div class="form-group">
+            <label for="client-location-pref">Preferred Location</label>
+            <select id="client-location-pref">
+              <option value="EC_PHASE_1">Electronic City Phase 1</option>
+              <option value="EC_PHASE_2">Electronic City Phase 2</option>
+              <option value="BOTH">Both Phase 1 & Phase 2</option>
+            </select>
+          </div>
+
+          <div class="form-group form-group-full">
+            <label for="client-interests">Selected Property / Inquiry</label>
+            <input type="text" id="client-interests" readonly value="Electronic City Site Visit">
+          </div>
+
+          <div class="form-group form-group-full">
+            <label for="client-notes">Chauffeur Pickup / Specific Requests</label>
+            <textarea id="client-notes" rows="3" placeholder="Provide pickup landmark in Bangalore (Koramangala, Indiranagar, HSR, Whitefield, etc.) or preferred visiting time..."></textarea>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.75rem; display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: flex-end;">
+          <a href="https://wa.me/919880000000?text=Hello%20NRN%20Properties%20Bangalore,%20I%20am%20inquiring%20about%20Electronic%20City%20luxury%20residences%20and%20site%20visits." target="_blank" class="btn-whatsapp-inline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/></svg>
+            Chat on WhatsApp
+          </a>
+          <button type="button" class="btn-ghost" onclick="closeConciergeModal()">Cancel</button>
+          <button type="submit" class="btn-gold">Confirm Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- VIP Investor Subscription & Off-Market Gazette Section -->
+  <section class="subscription-section" id="subscription">
+    <div class="subscription-card">
+      <div>
+        <div class="sub-header-tag">
+          <span class="badge-pill pulse">Private Investor Intelligence</span>
+          <span class="label-caps">Bangalore Tech Corridor</span>
+        </div>
+        <h2 class="sub-title">
+          Subscribe to <span class="text-gold-gradient">Off-Market Gazette</span>
+        </h2>
+        <p class="sub-desc">
+          Receive confidential bi-weekly market intelligence, pre-launch 360° floor plate allocations, and sovereign yield analytics for Electronic City Phase 1 & 2 before public release.
+        </p>
+        
+        <div class="sub-badges-list">
+          <div class="sub-badge-item"><span>✦</span> 100% Discretion Assured</div>
+          <div class="sub-badge-item"><span>✦</span> Pre-Launch Allocations</div>
+          <div class="sub-badge-item"><span>✦</span> WhatsApp Instant Alerts</div>
+          <div class="sub-badge-item"><span>✦</span> Zero Spam Guarantee</div>
+        </div>
+      </div>
+
+      <div class="subscription-form-box">
+        <form id="subscribe-form" onsubmit="handleSubscribe(event)">
+          <div class="sub-input-row">
+            <label for="sub-name">Investor / Legal Name</label>
+            <input type="text" id="sub-name" required placeholder="Dr. / Mr. / Ms. Full Name">
+          </div>
+
+          <div class="sub-input-row">
+            <label for="sub-email">Private Email</label>
+            <input type="email" id="sub-email" required placeholder="investor@domain.com">
+          </div>
+
+          <div class="sub-input-row">
+            <label for="sub-phone">WhatsApp Mobile (+91)</label>
+            <input type="tel" id="sub-phone" placeholder="+91 98765 43210 (Optional for Instant Alerts)">
+          </div>
+
+          <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; margin-top: 0.5rem;">
+            <span>📩</span> Subscribe to Off-Market Gazette
+          </button>
+          
+          <div class="sub-disclaimer">
+            * We respect sovereign privacy. Unsubscribe anytime with 1-click. Stored with AES-256 encryption.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating 3D WhatsApp Button (Stacked on Right Directly Above Chat Icon) -->
+  <a href="https://wa.me/919880000000?text=Hello%20NRN%20Properties%20Bangalore,%20I%20am%20inquiring%20about%20Electronic%20City%20luxury%20residences%20and%20360%20plate%20tours." target="_blank" class="whatsapp-floating-btn" title="Chat on WhatsApp (+91 98800 00000)">
+    <div class="whatsapp-icon-circle">
+      <svg viewBox="0 0 24 24">
+        <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.82 14.28c-.24.68-1.2 1.25-1.78 1.33-.49.07-1.12.1-3.26-.78-2.74-1.13-4.5-3.89-4.64-4.07-.13-.18-1.1-1.46-1.1-2.79 0-1.32.7-1.97.94-2.24.25-.26.54-.33.72-.33.18 0 .36 0 .52.01.17.01.4.06.6.55.22.52.74 1.8.8 1.93.07.13.11.29.02.46-.09.18-.13.29-.26.44-.13.15-.28.34-.4.46-.13.13-.27.27-.12.53.15.26.68 1.12 1.45 1.81.99.89 1.83 1.16 2.09 1.29.26.13.41.11.56-.07.16-.18.66-.77.84-1.03.18-.26.36-.22.6-.13.24.09 1.54.73 1.8.86.26.13.44.2.5.31.07.11.07.64-.17 1.32z"/>
+      </svg>
+    </div>
+  </a>
+
+  <!-- Floating AI Concierge / Voice Agent Widget -->
+  <div class="ai-concierge-widget">
+    <div class="concierge-chat-panel" id="concierge-panel">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-avatar">NRN</div>
+          <div>
+            <h5 style="font-size: 0.875rem; color: #fff;">NRN Bangalore Assistant</h5>
+            <span style="font-size: 0.6875rem; color: #10b981; display: flex; align-items: center; gap: 4px;">● Electronic City Specialist</span>
+          </div>
+        </div>
+        <button onclick="toggleAIConcierge()" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:1.25rem;">&times;</button>
+      </div>
+
+      <div class="chat-messages" id="chat-msgs">
+        <div class="chat-msg bot">
+          Namaskara! I am your NRN Electronic City Luxury Property Advisor. Inquire about Phase 1 or Phase 2 penthouses, sky villas, pricing in Crores (₹), or launch a 360° online floor plate tour anytime!
+        </div>
+      </div>
+
+      <form class="chat-input-area" onsubmit="sendChatMessage(event)">
+        <input type="text" id="chat-input" placeholder="Ask about 360° tours, Phase 1 or 2 properties, pricing..." autocomplete="off">
+        <button type="submit" class="chat-send-btn">Send</button>
+      </form>
+    </div>
+
+    <button class="concierge-trigger-btn" onclick="toggleAIConcierge()" title="Open NRN Electronic City Concierge">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="brand-logo" style="margin-bottom: 0.5rem;">
+          <div class="brand-emblem">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 9l3 2v9h6v-6h2v6h6v-9l3-2-10-7zm0 3.5L18 10v7h-2v-5H8v5H6v-7l6-4.5z"/>
+            </svg>
+          </div>
+          <div class="brand-name">
+            NRN PROPERTIES
+            <span>Bangalore · Electronic City</span>
+          </div>
+        </div>
+        <p>
+          Specialized luxury real estate developer and advisory firm operating exclusively in Electronic City Phase 1 & Phase 2, Bangalore.
+        </p>
+        <span class="badge-pill">BBMP & RERA Registered · Bangalore, Karnataka</span>
+      </div>
+
+      <div class="footer-col">
+        <h4>Electronic City Phase 1</h4>
+        <ul>
+          <li><a href="#residences">The Obsidian Sky Villa (₹6.85 Cr)</a></li>
+          <li><a href="#residences">The Neo-Belgravia Penthouse (₹3.50 Cr)</a></li>
+          <li><a href="#residences">Sovereign Crown Sky Palace (₹11.50 Cr)</a></li>
+          <li><a href="#residences">Neeladri Tech Corridor Plots</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Electronic City Phase 2</h4>
+        <ul>
+          <li><a href="#residences">Villa Elysium Grandeur (₹4.80 Cr)</a></li>
+          <li><a href="#residences">The Silicon Meridian Suites (₹2.45 Cr)</a></li>
+          <li><a href="#residences">The Serene Palms Estate (₹5.25 Cr)</a></li>
+          <li><a href="#residences">Tech Mahindra Hub Residences</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Bangalore Offices & WhatsApp</h4>
+        <ul>
+          <li><strong>Phase 1 Office:</strong> Neeladri Road, Electronic City Phase 1, Bengaluru 560100</li>
+          <li><strong>Phase 2 Office:</strong> Hosur Main Road, Electronic City Phase 2, Bengaluru 560100</li>
+          <li><strong>Direct WhatsApp:</strong> <a href="https://wa.me/919880000000" style="color:#25d366; font-weight:600;">+91 98800 00000</a></li>
+          <li><strong>Email:</strong> luxury@nrnproperties-blr.com</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 NRN Properties Bangalore. All Rights Reserved. RERA Karnataka Registered.</div>
+      <div>Designed with Stitch Obsidian & Champagne System · 360° VR Enabled</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>

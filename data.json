@@ -1,0 +1,201 @@
+{
+  "_meta": {
+    "lastUpdated": "2026-10-07T07:30:00.000Z",
+    "version": "1.0.0",
+    "adminUser": "admin"
+  },
+  "site": {
+    "brandName": "NRN PROPERTIES",
+    "tagline": "Bangalore · Electronic City",
+    "heroTitle": "Tour Every Floor Plate in 360° Virtual Reality",
+    "heroSubtitle": "Experience every luxury flat, sky villa, and penthouse in Electronic City Phase 1 & 2 directly from your screen. Inspect double-height living salons, master presidential suites, and sky pools in full 360° online.",
+    "heroEyebrow": "360° Interactive Plate Tours",
+    "heroEyebrowSub": "Phase 1 & Phase 2 · Bangalore",
+    "whatsappNumber": "919880000000",
+    "email": "luxury@nrnproperties-blr.com",
+    "phone": "+91 98800 00000",
+    "officePhase1": "Neeladri Road, Electronic City Phase 1, Bengaluru 560100",
+    "officePhase2": "Hosur Main Road, Electronic City Phase 2, Bengaluru 560100",
+    "footerCopyright": "© 2026 NRN Properties Bangalore. All Rights Reserved. RERA Karnataka Registered.",
+    "reraText": "BBMP & RERA Registered · Bangalore, Karnataka"
+  },
+  "analytics": {
+    "googleAnalyticsId": "G-XXXXXXXXXX",
+    "enabled": true,
+    "trackEvents": true,
+    "sendServerTelemetry": true
+  },
+  "stats": [
+    { "id": "stat-1", "value": "360", "unit": "° HD", "label": "Virtual Plate Tours For Every Flat" },
+    { "id": "stat-2", "value": "100", "unit": "%", "label": "Online Remote Inspection Ready" },
+    { "id": "stat-3", "value": "Phase 1 & 2", "unit": "", "label": "Electronic City Exclusive Focus" },
+    { "id": "stat-4", "value": "₹380", "unit": " Cr+", "label": "Curated Portfolio Value" }
+  ],
+  "residences": [
+    {
+      "id": "obsidian-sky-ec1",
+      "title": "The Obsidian Sky Villa",
+      "location": "Electronic City Phase 1, Bangalore",
+      "locationKey": "ec-phase1",
+      "landmark": "Near Wipro Corporate Campus / Neeladri Road",
+      "type": "sky-mansion",
+      "priceInr": 68500000,
+      "priceFormatted": "₹6.85 Cr",
+      "badge": "Signature Collection",
+      "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80",
+      "specs": {
+        "beds": "5 BHK Triplex",
+        "baths": "6 Baths",
+        "sqft": "6,800 sq.ft",
+        "tier": "tier-2"
+      },
+      "plates": ["Floor 22 - Sky Villa Plate A", "Floor 23 - Duplex Terrace Plate", "Floor 24 - Penthouse Crown Plate"],
+      "rooms": [
+        { "id": "living", "name": "Grand Living Salon", "panorama": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2000&q=85", "desc": "Double-height salon with Botticino marble & floor-to-ceiling glass" },
+        { "id": "master", "name": "Master Presidential Suite", "panorama": "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=2000&q=85", "desc": "Panoramic view over Phase 1 tech corridor with walk-in wardrobe" },
+        { "id": "terrace", "name": "Sky Terrace & Infinity Pool", "panorama": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=2000&q=85", "desc": "Cantilevered infinity plunge pool floating 24 floors up" },
+        { "id": "kitchen", "name": "Modular Italian Kitchen", "panorama": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=2000&q=85", "desc": "Custom Poliform cabinetry with integrated Miele appliances" }
+      ],
+      "description": "Ultra-luxury cantilevered triplex sky villa floating high above the Phase 1 tech skyline with private infinity terrace pool & biometric foyer.",
+      "featured": true,
+      "status": "available"
+    },
+    {
+      "id": "elysium-villa-ec2",
+      "title": "Villa Elysium Grandeur",
+      "location": "Electronic City Phase 2, Bangalore",
+      "locationKey": "ec-phase2",
+      "landmark": "Near Tech Mahindra & TCS Hub",
+      "type": "gated-villa",
+      "priceInr": 48000000,
+      "priceFormatted": "₹4.80 Cr",
+      "badge": "Gated Estate",
+      "image": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80",
+      "specs": {
+        "beds": "4 BHK Luxury Villa",
+        "baths": "5 Baths",
+        "sqft": "4,950 sq.ft",
+        "tier": "tier-2"
+      },
+      "plates": ["Ground Plate - Garden & Courtyard", "First Floor - Family Lounge Plate", "Terrace Plate - Rooftop Solar Deck"],
+      "rooms": [
+        { "id": "living", "name": "Double-Height Courtyard", "panorama": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=85", "desc": "Open-to-sky central courtyard with vertical green wall" },
+        { "id": "master", "name": "Master Royal Suite", "panorama": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=2000&q=85", "desc": "Hardwood oak flooring with private balcony overlooking garden" },
+        { "id": "terrace", "name": "Private Zen Garden", "panorama": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=2000&q=85", "desc": "Landscaped private lawn with gazebo and outdoor barbecue" }
+      ],
+      "description": "Private landscaped villa with double-height Italian marble living spaces, zen courtyard, and dual EV charging ports in Phase 2's quietest avenue.",
+      "featured": false,
+      "status": "available"
+    },
+    {
+      "id": "belgravia-penthouse-ec1",
+      "title": "The Neo-Belgravia Penthouse",
+      "location": "Electronic City Phase 1, Bangalore",
+      "locationKey": "ec-phase1",
+      "landmark": "Overlooking Hosur Elevated Expressway",
+      "type": "penthouse",
+      "priceInr": 35000000,
+      "priceFormatted": "₹3.50 Cr",
+      "badge": "Crown Penthouse",
+      "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+      "specs": {
+        "beds": "4 BHK Duplex",
+        "baths": "4.5 Baths",
+        "sqft": "4,200 sq.ft",
+        "tier": "tier-1"
+      },
+      "plates": ["Lower Level Plate - Grand Living", "Upper Level Plate - Master Suites"],
+      "rooms": [
+        { "id": "living", "name": "Sky Lounge & Salon", "panorama": "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=2000&q=85", "desc": "Acoustically insulated double-pane glass with skyline panorama" },
+        { "id": "master", "name": "Executive Suite", "panorama": "https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?auto=format&fit=crop&w=2000&q=85", "desc": "Bespoke brass paneling and ensuite marble spa bathroom" }
+      ],
+      "description": "Duplex penthouse with wrap-around champagne louvers, triple-pane acoustic soundproofing, and private sky lounge.",
+      "featured": false,
+      "status": "available"
+    },
+    {
+      "id": "sovereign-crown-ec1",
+      "title": "Sovereign Crown Sky Palace",
+      "location": "Electronic City Phase 1, Bangalore",
+      "locationKey": "ec-phase1",
+      "landmark": "Prime Neeladri Tech Corridor",
+      "type": "sky-mansion",
+      "priceInr": 115000000,
+      "priceFormatted": "₹11.50 Cr",
+      "badge": "Off-Market Crown",
+      "image": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80",
+      "specs": {
+        "beds": "6 BHK Sky Mansion",
+        "baths": "7 Baths",
+        "sqft": "9,500 sq.ft",
+        "tier": "tier-3"
+      },
+      "plates": ["Top Floor Plate - 360 Observatory", "Duplex Lower Plate - Royal Foyer"],
+      "rooms": [
+        { "id": "living", "name": "360° Crown Observatory", "panorama": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=2000&q=85", "desc": "Unobstructed views from Hosur border to Koramangala horizon" },
+        { "id": "master", "name": "Emperor Suite & Spa", "panorama": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=2000&q=85", "desc": "Jacuzzi spa, Finnish sauna, and private safe sanctuary" }
+      ],
+      "description": "Rare full-floor sky mansion spanning the top two penthouse floors with 360° observatory views of Bangalore's IT Silicon belt.",
+      "featured": true,
+      "status": "available"
+    },
+    {
+      "id": "silicon-meridian-ec2",
+      "title": "The Silicon Meridian Residences",
+      "location": "Electronic City Phase 2, Bangalore",
+      "locationKey": "ec-phase2",
+      "landmark": "Near Infosys Gate & Tech Park Corridor",
+      "type": "penthouse",
+      "priceInr": 24500000,
+      "priceFormatted": "₹2.45 Cr",
+      "badge": "Prime Executive",
+      "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80",
+      "specs": {
+        "beds": "3 BHK Luxury Penthouse",
+        "baths": "3 Baths",
+        "sqft": "2,750 sq.ft",
+        "tier": "tier-1"
+      },
+      "plates": ["Floor 15 - Meridian Plate A", "Floor 15 - Meridian Plate B"],
+      "rooms": [
+        { "id": "living", "name": "Contemporary Living", "panorama": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2000&q=85", "desc": "Open layout with smart lighting and seamless balcony integration" },
+        { "id": "master", "name": "Master Bedroom Suite", "panorama": "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=2000&q=85", "desc": "Quiet courtyard facing orientation with acoustic damping" }
+      ],
+      "description": "Premium designer residence crafted with obsidian dark accents, German smart home automation, and quick walkability to top IT campuses.",
+      "featured": false,
+      "status": "available"
+    },
+    {
+      "id": "serene-palms-ec2",
+      "title": "The Serene Palms Garden Estate",
+      "location": "Electronic City Phase 2, Bangalore",
+      "locationKey": "ec-phase2",
+      "landmark": "Bettadasanapura Road Green Belt",
+      "type": "gated-villa",
+      "priceInr": 52500000,
+      "priceFormatted": "₹5.25 Cr",
+      "badge": "Private Sanctuary",
+      "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80",
+      "specs": {
+        "beds": "5 BHK Luxury Villa",
+        "baths": "6 Baths",
+        "sqft": "5,600 sq.ft",
+        "tier": "tier-2"
+      },
+      "plates": ["Plate A - Ground Living & Pool", "Plate B - Upper Suites & Lounge"],
+      "rooms": [
+        { "id": "living", "name": "Estate Grand Foyer", "panorama": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85", "desc": "Sprawling living room overlooking heated private pool" },
+        { "id": "terrace", "name": "Lakeside Deck & Lawn", "panorama": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=2000&q=85", "desc": "Private green sanctuary surrounded by 100-year-old banyan trees" }
+      ],
+      "description": "Tranquil private garden estate featuring a private temperature-controlled lap pool, personal gymnasium, and 100% solar micro-grid.",
+      "featured": false,
+      "status": "available"
+    }
+  ],
+  "leads": [],
+  "subscribers": [],
+  "adminCredentials": {
+    "username": "admin",
+    "passwordHash": "nrn2026@admin"
+  }
+}

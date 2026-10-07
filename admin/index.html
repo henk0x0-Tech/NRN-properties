@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NRN Properties — Admin CPanel</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen" class="login-screen">
+    <div class="login-bg-grid"></div>
+    <div class="login-card">
+      <div class="login-logo">
+        <svg viewBox="0 0 24 24" width="36" height="36" fill="var(--gold)">
+          <path d="M12 2L2 9l3 2v9h6v-6h2v6h6v-9l3-2-10-7zm0 3.5L18 10v7h-2v-5H8v5H6v-7l6-4.5z"/>
+        </svg>
+        <div>
+          <div class="login-brand">NRN PROPERTIES</div>
+          <div class="login-subtitle">Admin Control Panel</div>
+        </div>
+      </div>
+      <form id="login-form" onsubmit="handleLogin(event)">
+        <div class="form-field">
+          <label>Username</label>
+          <input type="text" id="login-user" placeholder="admin" autocomplete="username">
+        </div>
+        <div class="form-field">
+          <label>Password</label>
+          <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <div id="login-error" class="login-error" style="display:none;">Invalid credentials. Try again.</div>
+        <button type="submit" class="btn-primary login-btn">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"/></svg>
+          Sign In to CPanel
+        </button>
+      </form>
+      <div class="login-hint">Default: admin / nrn2026@admin</div>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div id="admin-panel" class="admin-panel" style="display:none;">
+
+    <!-- TOP NAVBAR -->
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="sidebar-toggle" onclick="toggleSidebar()" id="sidebar-toggle-btn">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        </button>
+        <div class="topbar-brand">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="var(--gold)"><path d="M12 2L2 9l3 2v9h6v-6h2v6h6v-9l3-2-10-7zm0 3.5L18 10v7h-2v-5H8v5H6v-7l6-4.5z"/></svg>
+          <span>NRN CPanel</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-status">
+          <span class="status-dot"></span>
+          <span id="save-status">All changes saved</span>
+        </div>
+        <a href="../index.html" target="_blank" class="btn-outline-sm">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+          View Site
+        </a>
+        <button class="btn-ghost-sm" onclick="handleLogout()">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <div class="admin-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="admin-sidebar" id="admin-sidebar">
+        <nav class="sidebar-nav">
+          <div class="nav-section-label">Dashboard</div>
+          <a href="#" class="nav-item active" data-panel="dashboard" onclick="showPanel('dashboard', this)">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+            Dashboard
+          </a>
+
+          <div class="nav-section-label">Content</div>
+          <a href="#" class="nav-item" data-panel="properties" onclick="showPanel('properties', this)">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            Properties
+          </a>
+          <a href="#" class="nav-item" data-panel="site-settings" onclick="showPanel('site-settings', this)">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            Site Settings
+          </a>
+          <a href="#" class="nav-item" data-panel="stats" onclick="showPanel('stats', this)">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+            Stats & Telemetry
+          </a>
+
+          <div class="nav-section-label">CRM</div>
+          <a href="#" class="nav-item" data-panel="leads" onclick="showPanel('leads', this)">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+            Leads / Inquiries
+            <span class="nav-badge" id="leads-badge">0</span>
+          </a>
+          <a href="#" class="nav-item" data-panel="subscribers" onclick="showPanel('subscribers', this)">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            Subscribers
+            <span class="nav-badge" id="subs-badge">0</span>
+          </a>
+
+          <div class="nav-section-label">System</div>
+          <a href="#" class="nav-item" data-panel="database" onclick="showPanel('database', this)">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2C8.13 2 5 3.79 5 6v12c0 2.21 3.13 4 7 4s7-1.79 7-4V6c0-2.21-3.13-4-7-4zm0 2c3.31 0 5 1.34 5 2s-1.69 2-5 2-5-1.34-5-2 1.69-2 5-2zm0 16c-3.31 0-5-1.34-5-2v-2.23c1.22.74 3.02 1.23 5 1.23s3.78-.49 5-1.23V18c0 .66-1.69 2-5 2zm0-4c-3.31 0-5-1.34-5-2v-2.23c1.22.74 3.02 1.23 5 1.23s3.78-.49 5-1.23V12c0 .66-1.69 2-5 2zm0-4c-3.31 0-5-1.34-5-2V8.77C8.22 9.51 10.02 10 12 10s3.78-.49 5-1.23V10c0 .66-1.69 2-5 2z"/></svg>
+            Database (JSON)
+          </a>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="sidebar-user">
+            <div class="user-avatar">A</div>
+            <div>
+              <div class="user-name">Administrator</div>
+              <div class="user-role">NRN Properties</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="admin-main" id="admin-main">
+
+        <!-- DASHBOARD PANEL -->
+        <section id="panel-dashboard" class="panel active">
+          <div class="panel-header">
+            <div>
+              <h1 class="panel-title">Dashboard</h1>
+              <p class="panel-desc">Welcome to NRN Properties Admin CPanel</p>
+            </div>
+            <div class="panel-actions">
+              <div id="last-save-time" class="last-save-time"></div>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card gold">
+              <div class="stat-icon">🏠</div>
+              <div class="stat-value" id="dash-properties">6</div>
+              <div class="stat-label">Total Properties</div>
+            </div>
+            <div class="stat-card blue">
+              <div class="stat-icon">📋</div>
+              <div class="stat-value" id="dash-leads">0</div>
+              <div class="stat-label">New Leads</div>
+            </div>
+            <div class="stat-card green">
+              <div class="stat-icon">📧</div>
+              <div class="stat-value" id="dash-subs">0</div>
+              <div class="stat-label">Subscribers</div>
+            </div>
+            <div class="stat-card purple">
+              <div class="stat-icon">⭐</div>
+              <div class="stat-value" id="dash-featured">2</div>
+              <div class="stat-label">Featured Listings</div>
+            </div>
+          </div>
+
+          <div class="dash-grid">
+            <div class="dash-card">
+              <div class="dash-card-header">
+                <h3>Quick Actions</h3>
+              </div>
+              <div class="quick-actions">
+                <button class="quick-btn" onclick="showPanel('properties', document.querySelector('[data-panel=properties]'))">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                  Add New Property
+                </button>
+                <button class="quick-btn" onclick="showPanel('site-settings', document.querySelector('[data-panel=site-settings]'))">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 20h9v-2h-9v2zm-3.5-7l-1.5 1.5 5 5L21 10l-1.5-1.5-7 7L8.5 13zM19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h4v-2H5V5h14v4h2V5c0-1.1-.9-2-2-2z"/></svg>
+                  Edit Hero Content
+                </button>
+                <button class="quick-btn" onclick="showPanel('leads', document.querySelector('[data-panel=leads]'))">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                  View Inquiries
+                </button>
+                <button class="quick-btn" onclick="exportData()">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                  Export Data (JSON)
+                </button>
+              </div>
+            </div>
+
+            <div class="dash-card">
+              <div class="dash-card-header">
+                <h3>Recent Leads</h3>
+              </div>
+              <div id="dash-recent-leads">
+                <div class="empty-state-sm">No leads yet</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PROPERTIES PANEL -->
+        <section id="panel-properties" class="panel">
+          <div class="panel-header">
+            <div>
+              <h1 class="panel-title">Properties Management</h1>
+              <p class="panel-desc">Add, edit, or remove property listings</p>
+            </div>
+            <div class="panel-actions">
+              <button class="btn-primary" onclick="openPropertyModal()">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                Add Property
+              </button>
+            </div>
+          </div>
+          <div id="property-list" class="property-list"></div>
+        </section>
+
+        <!-- SITE SETTINGS PANEL -->
+        <section id="panel-site-settings" class="panel">
+          <div class="panel-header">
+            <div>
+              <h1 class="panel-title">Site Settings</h1>
+              <p class="panel-desc">Edit homepage content, contact info and brand settings</p>
+            </div>
+            <div class="panel-actions">
+              <button class="btn-primary" onclick="saveSiteSettings()">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+                Save Settings
+              </button>
+            </div>
+          </div>
+
+          <div class="settings-grid">
+            <div class="settings-card">
+              <h3 class="settings-card-title">🏠 Brand & Identity</h3>
+              <div class="form-field">
+                <label>Brand Name</label>
+                <input type="text" id="s-brandName" placeholder="NRN PROPERTIES">
+              </div>
+              <div class="form-field">
+                <label>Tagline</label>
+                <input type="text" id="s-tagline" placeholder="Bangalore · Electronic City">
+              </div>
+              <div class="form-field">
+                <label>RERA Text</label>
+                <input type="text" id="s-reraText">
+              </div>
+              <div class="form-field">
+                <label>Footer Copyright</label>
+                <input type="text" id="s-footerCopyright">
+              </div>
+            </div>
+
+            <div class="settings-card">
+              <h3 class="settings-card-title">🎯 Hero Section</h3>
+              <div class="form-field">
+                <label>Hero Eyebrow Tag</label>
+                <input type="text" id="s-heroEyebrow">
+              </div>
+              <div class="form-field">
+                <label>Hero Eyebrow Sub</label>
+                <input type="text" id="s-heroEyebrowSub">
+              </div>
+              <div class="form-field">
+                <label>Hero Title</label>
+                <textarea id="s-heroTitle" rows="2"></textarea>
+              </div>
+              <div class="form-field">
+                <label>Hero Subtitle</label>
+                <textarea id="s-heroSubtitle" rows="3"></textarea>
+              </div>
+            </div>
+
+            <div class="settings-card">
+              <h3 class="settings-card-title">📞 Contact Information</h3>
+              <div class="form-field">
+                <label>WhatsApp Number (no +)</label>
+                <input type="text" id="s-whatsappNumber" placeholder="919880000000">
+              </div>
+              <div class="form-field">
+                <label>Email Address</label>
+                <input type="email" id="s-email">
+              </div>
+              <div class="form-field">
+                <label>Phone Display</label>
+                <input type="text" id="s-phone">
+              </div>
+              <div class="form-field">
+                <label>Phase 1 Office Address</label>
+                <textarea id="s-officePhase1" rows="2"></textarea>
+              </div>
+              <div class="form-field">
+                <label>Phase 2 Office Address</label>
+                <textarea id="s-officePhase2" rows="2"></textarea>
+              </div>
+            </div>
+
+            <div class="settings-card" style="border-color: rgba(212, 175, 55, 0.4);">
+              <h3 class="settings-card-title">📊 Google Analytics 4 (GA4)</h3>
+              <div class="form-field">
+                <label>Measurement ID (starts with G-)</label>
+                <input type="text" id="s-gaId" placeholder="G-XXXXXXXXXX" style="font-family:var(--font-mono);font-weight:600;color:var(--gold);">
+                <small style="color:var(--text-muted);font-size:0.75rem;margin-top:4px;display:block;">
+                  Enter your GA4 Measurement ID from Google Analytics Admin > Data Streams.
+                </small>
+              </div>
+              <div class="form-field" style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;">
+                <label style="margin:0;">Enable Analytics Tracking</label>
+                <input type="checkbox" id="s-gaEnabled" checked style="width:20px;height:20px;accent-color:var(--gold);">
+              </div>
+              <div class="form-field" style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;">
+                <label style="margin:0;">Track 360° VR & Lead Events</label>
+                <input type="checkbox" id="s-gaTrackEvents" checked style="width:20px;height:20px;accent-color:var(--gold);">
+              </div>
+              <div style="margin-top:16px;padding:12px;background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.2);border-radius:6px;">
+                <div style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:8px;">
+                  ⚡ <strong>Auto-tracked conversions:</strong>
+                </div>
+                <div style="font-size:0.75rem;color:var(--text-muted);line-height:1.6;">
+                  • <code>generate_lead</code> (VIP Inquiries)<br>
+                  • <code>view_item</code> (360° Floor Plate Tours)<br>
+                  • <code>sign_up</code> (Gazette Newsletter)<br>
+                  • <code>contact_whatsapp</code> (Direct WhatsApp)
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STATS PANEL -->
+        <section id="panel-stats" class="panel">
+          <div class="panel-header">
+            <div>
+              <h1 class="panel-title">Stats & Telemetry</h1>
+              <p class="panel-desc">Edit the stats ticker displayed on the homepage</p>
+            </div>
+            <div class="panel-actions">
+              <button class="btn-primary" onclick="saveStats()">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+                Save Stats
+              </button>
+            </div>
+          </div>
+          <div id="stats-editor" class="stats-editor"></div>
+        </section>
+
+        <!-- LEADS PANEL -->
+        <section id="panel-leads" class="panel">
+          <div class="panel-header">
+            <div>
+              <h1 class="panel-title">Leads & Inquiries</h1>
+              <p class="panel-desc">All form submissions from the website</p>
+            </div>
+            <div class="panel-actions">
+              <button class="btn-ghost-sm" onclick="exportLeads()">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                Export CSV
+              </button>
+              <button class="btn-danger-sm" onclick="clearLeads()">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                Clear All
+              </button>
+            </div>
+          </div>
+          <div id="leads-table-container"></div>
+        </section>
+
+        <!-- SUBSCRIBERS PANEL -->
+        <section id="panel-subscribers" class="panel">
+          <div class="panel-header">
+            <div>
+              <h1 class="panel-title">Subscribers</h1>
+              <p class="panel-desc">Off-Market Gazette subscribers list</p>
+            </div>
+            <div class="panel-actions">
+              <button class="btn-ghost-sm" onclick="exportSubscribers()">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                Export CSV
+              </button>
+              <button class="btn-danger-sm" onclick="clearSubscribers()">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                Clear All
+              </button>
+            </div>
+          </div>
+          <div id="subscribers-table-container"></div>
+        </section>
+
+        <!-- DATABASE PANEL -->
+        <section id="panel-database" class="panel">
+          <div class="panel-header">
+            <div>
+              <h1 class="panel-title">Database (JSON)</h1>
+              <p class="panel-desc">Raw JSON database — edit with caution</p>
+            </div>
+            <div class="panel-actions">
+              <button class="btn-ghost-sm" onclick="formatJsonEditor()">Format</button>
+              <button class="btn-danger-sm" onclick="saveRawJson()">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4z"/></svg>
+                Save Raw JSON
+              </button>
+            </div>
+          </div>
+          <div class="json-editor-wrapper">
+            <div class="json-warning">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+              Warning: Editing raw JSON can break the site if invalid. Always keep valid JSON structure.
+            </div>
+            <textarea id="json-editor" class="json-editor" spellcheck="false"></textarea>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- PROPERTY MODAL -->
+  <div id="property-modal" class="modal-overlay" style="display:none;">
+    <div class="modal-box large">
+      <div class="modal-header">
+        <h2 id="modal-title-text">Add New Property</h2>
+        <button class="modal-close" onclick="closePropertyModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-tabs">
+          <button class="modal-tab active" onclick="switchModalTab('basic', this)">Basic Info</button>
+          <button class="modal-tab" onclick="switchModalTab('specs', this)">Specs & Price</button>
+          <button class="modal-tab" onclick="switchModalTab('media', this)">Images & 360°</button>
+          <button class="modal-tab" onclick="switchModalTab('rooms', this)">Rooms</button>
+        </div>
+
+        <!-- Basic Info Tab -->
+        <div id="tab-basic" class="modal-tab-content active">
+          <div class="form-row">
+            <div class="form-field">
+              <label>Property ID (slug)</label>
+              <input type="text" id="p-id" placeholder="obsidian-sky-ec1">
+            </div>
+            <div class="form-field">
+              <label>Status</label>
+              <select id="p-status">
+                <option value="available">Available</option>
+                <option value="sold">Sold</option>
+                <option value="off-market">Off-Market</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Property Title</label>
+            <input type="text" id="p-title" placeholder="The Obsidian Sky Villa">
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Location</label>
+              <input type="text" id="p-location" placeholder="Electronic City Phase 1, Bangalore">
+            </div>
+            <div class="form-field">
+              <label>Location Key</label>
+              <select id="p-locationKey">
+                <option value="ec-phase1">EC Phase 1</option>
+                <option value="ec-phase2">EC Phase 2</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Landmark</label>
+            <input type="text" id="p-landmark" placeholder="Near Wipro Corporate Campus">
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Property Type</label>
+              <select id="p-type">
+                <option value="sky-mansion">Triplex Sky Villa</option>
+                <option value="penthouse">Luxury Penthouse</option>
+                <option value="gated-villa">Gated Estate Villa</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Badge Text</label>
+              <input type="text" id="p-badge" placeholder="Signature Collection">
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Description</label>
+            <textarea id="p-description" rows="3" placeholder="Ultra-luxury cantilevered triplex sky villa..."></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Featured Listing</label>
+              <select id="p-featured">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Specs Tab -->
+        <div id="tab-specs" class="modal-tab-content">
+          <div class="form-row">
+            <div class="form-field">
+              <label>Price (INR in numbers)</label>
+              <input type="number" id="p-priceInr" placeholder="68500000">
+            </div>
+            <div class="form-field">
+              <label>Price Display (formatted)</label>
+              <input type="text" id="p-priceFormatted" placeholder="₹6.85 Cr">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Bedrooms / Layout</label>
+              <input type="text" id="p-beds" placeholder="5 BHK Triplex">
+            </div>
+            <div class="form-field">
+              <label>Bathrooms</label>
+              <input type="text" id="p-baths" placeholder="6 Baths">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Area (sq.ft)</label>
+              <input type="text" id="p-sqft" placeholder="6,800 sq.ft">
+            </div>
+            <div class="form-field">
+              <label>Price Tier</label>
+              <select id="p-tier">
+                <option value="tier-1">Tier 1 (₹2–3.5 Cr)</option>
+                <option value="tier-2">Tier 2 (₹3.5–7 Cr)</option>
+                <option value="tier-3">Tier 3 (₹7 Cr+)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Floor Plates (one per line)</label>
+            <textarea id="p-plates" rows="4" placeholder="Floor 22 - Sky Villa Plate A&#10;Floor 23 - Duplex Terrace Plate"></textarea>
+          </div>
+        </div>
+
+        <!-- Media Tab -->
+        <div id="tab-media" class="modal-tab-content">
+          <div class="form-field">
+            <label>Main Property Image URL</label>
+            <input type="url" id="p-image" placeholder="https://images.unsplash.com/...">
+          </div>
+          <div class="image-preview-box">
+            <div class="img-preview-label">Image Preview</div>
+            <img id="p-image-preview" src="" alt="Preview" style="display:none; max-width:100%; border-radius:8px; margin-top:8px;">
+            <button type="button" class="btn-outline-sm" style="margin-top:8px;" onclick="previewPropertyImage()">Preview Image</button>
+          </div>
+          <div class="form-field" style="margin-top:1rem;">
+            <label>Or paste any public image URL (Unsplash, Google Drive share link, etc.)</label>
+            <p class="field-hint">For local images: place them in the project root and use just the filename (e.g., <code>my-photo.jpg</code>). The server will serve them automatically.</p>
+          </div>
+        </div>
+
+        <!-- Rooms Tab -->
+        <div id="tab-rooms" class="modal-tab-content">
+          <div id="rooms-editor">
+            <!-- dynamically rendered -->
+          </div>
+          <button class="btn-outline-sm" style="margin-top:1rem;" onclick="addRoomField()">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+            Add Room / Space
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-ghost-sm" onclick="closePropertyModal()">Cancel</button>
+        <button class="btn-primary" onclick="saveProperty()">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+          Save Property
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEAD DETAIL MODAL -->
+  <div id="lead-modal" class="modal-overlay" style="display:none;">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>Lead Details</h2>
+        <button class="modal-close" onclick="closeLeadModal()">✕</button>
+      </div>
+      <div class="modal-body" id="lead-modal-body"></div>
+      <div class="modal-footer">
+        <button class="btn-ghost-sm" onclick="closeLeadModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast"></div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
